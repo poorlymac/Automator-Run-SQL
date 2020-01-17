@@ -1,0 +1,406 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		931F570223CBF71A00D638DF /* Run_SQL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931F570123CBF71A00D638DF /* Run_SQL.swift */; };
+		931F570623CBF71A00D638DF /* main.xib in Resources */ = {isa = PBXBuildFile; fileRef = 931F570423CBF71A00D638DF /* main.xib */; };
+		931F570A23CBF71A00D638DF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 931F570923CBF71A00D638DF /* Localizable.strings */; };
+		931F570E23CBF71A00D638DF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 931F570C23CBF71A00D638DF /* InfoPlist.strings */; };
+		93AD5F0823D1248E002C556F /* Database.icns in Resources */ = {isa = PBXBuildFile; fileRef = 93AD5F0723D1248E002C556F /* Database.icns */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		931F56FE23CBF71A00D638DF /* Run SQL.action */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Run SQL.action"; sourceTree = BUILT_PRODUCTS_DIR; };
+		931F570123CBF71A00D638DF /* Run_SQL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Run_SQL.swift; sourceTree = "<group>"; };
+		931F570323CBF71A00D638DF /* Run_SQL-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Run_SQL-Bridging-Header.h"; sourceTree = "<group>"; };
+		931F570523CBF71A00D638DF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/main.xib; sourceTree = "<group>"; };
+		931F570923CBF71A00D638DF /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		931F570B23CBF71A00D638DF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		931F570D23CBF71A00D638DF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		93AD5F0723D1248E002C556F /* Database.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Database.icns; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		931F56FA23CBF71A00D638DF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		931F56F423CBF71A00D638DF = {
+			isa = PBXGroup;
+			children = (
+				931F570023CBF71A00D638DF /* Run SQL */,
+				931F56FF23CBF71A00D638DF /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		931F56FF23CBF71A00D638DF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				931F56FE23CBF71A00D638DF /* Run SQL.action */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		931F570023CBF71A00D638DF /* Run SQL */ = {
+			isa = PBXGroup;
+			children = (
+				931F570123CBF71A00D638DF /* Run_SQL.swift */,
+				931F570323CBF71A00D638DF /* Run_SQL-Bridging-Header.h */,
+				931F570423CBF71A00D638DF /* main.xib */,
+				931F570923CBF71A00D638DF /* Localizable.strings */,
+				931F570B23CBF71A00D638DF /* Info.plist */,
+				931F570C23CBF71A00D638DF /* InfoPlist.strings */,
+				93AD5F0723D1248E002C556F /* Database.icns */,
+			);
+			path = "Run SQL";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		931F56FD23CBF71A00D638DF /* Run SQL */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 931F571123CBF71A00D638DF /* Build configuration list for PBXNativeTarget "Run SQL" */;
+			buildPhases = (
+				931F56F923CBF71A00D638DF /* Sources */,
+				931F56FA23CBF71A00D638DF /* Frameworks */,
+				931F56FB23CBF71A00D638DF /* Resources */,
+				931F56FC23CBF71A00D638DF /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Run SQL";
+			productName = "Run SQL";
+			productReference = 931F56FE23CBF71A00D638DF /* Run SQL.action */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		931F56F523CBF71A00D638DF /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1130;
+				LastUpgradeCheck = 1130;
+				ORGANIZATIONNAME = "Paul Schaap";
+				TargetAttributes = {
+					931F56FD23CBF71A00D638DF = {
+						CreatedOnToolsVersion = 11.3;
+						LastSwiftMigration = 1130;
+					};
+				};
+			};
+			buildConfigurationList = 931F56F823CBF71A00D638DF /* Build configuration list for PBXProject "Run SQL" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 931F56F423CBF71A00D638DF;
+			productRefGroup = 931F56FF23CBF71A00D638DF /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				931F56FD23CBF71A00D638DF /* Run SQL */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		931F56FB23CBF71A00D638DF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				931F570623CBF71A00D638DF /* main.xib in Resources */,
+				93AD5F0823D1248E002C556F /* Database.icns in Resources */,
+				931F570E23CBF71A00D638DF /* InfoPlist.strings in Resources */,
+				931F570A23CBF71A00D638DF /* Localizable.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		931F56FC23CBF71A00D638DF /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "amlint \"${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		931F56F923CBF71A00D638DF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				931F570223CBF71A00D638DF /* Run_SQL.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		931F570423CBF71A00D638DF /* main.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				931F570523CBF71A00D638DF /* Base */,
+			);
+			name = main.xib;
+			sourceTree = "<group>";
+		};
+		931F570C23CBF71A00D638DF /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				931F570D23CBF71A00D638DF /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		931F570F23CBF71A00D638DF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		931F571023CBF71A00D638DF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		931F571223CBF71A00D638DF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = YZTT4L7JUR;
+				HEADER_SEARCH_PATHS = (
+					/usr/local/Cellar/openssl/1.0.2t/include,
+					/usr/local/Cellar/mysql/8.0.19/include,
+					/usr/local/Cellar/libpq/12.1_1/include,
+					/usr/local/include,
+					/usr/include,
+				);
+				INFOPLIST_FILE = "Run SQL/Info.plist";
+				INSTALL_PATH = "$(HOME)/Library/Automator";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/usr/local/lib,
+					/usr/lib,
+				);
+				OTHER_LDFLAGS = (
+					"-lmysqlclient",
+					"-lpq",
+					"-lssl",
+					"-lcrypto",
+				);
+				OTHER_OSAFLAGS = "-x -t 0 -c 0";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.poorly.Automator-SQL";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "${PRODUCT_NAME}/${PRODUCT_NAME:identifier}-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+				WRAPPER_EXTENSION = action;
+			};
+			name = Debug;
+		};
+		931F571323CBF71A00D638DF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = YZTT4L7JUR;
+				HEADER_SEARCH_PATHS = (
+					/usr/local/Cellar/openssl/1.0.2t/include,
+					/usr/local/Cellar/mysql/8.0.19/include,
+					/usr/local/Cellar/libpq/12.1_1/include,
+					/usr/local/include,
+					/usr/include,
+				);
+				INFOPLIST_FILE = "Run SQL/Info.plist";
+				INSTALL_PATH = "$(HOME)/Library/Automator";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/usr/local/lib,
+					/usr/lib,
+				);
+				OTHER_LDFLAGS = (
+					"-lmysqlclient",
+					"-lpq",
+					"-lssl",
+					"-lcrypto",
+				);
+				OTHER_OSAFLAGS = "-x -t 0 -c 0";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.poorly.Automator-SQL";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "${PRODUCT_NAME}/${PRODUCT_NAME:identifier}-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+				WRAPPER_EXTENSION = action;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		931F56F823CBF71A00D638DF /* Build configuration list for PBXProject "Run SQL" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				931F570F23CBF71A00D638DF /* Debug */,
+				931F571023CBF71A00D638DF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		931F571123CBF71A00D638DF /* Build configuration list for PBXNativeTarget "Run SQL" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				931F571223CBF71A00D638DF /* Debug */,
+				931F571323CBF71A00D638DF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 931F56F523CBF71A00D638DF /* Project object */;
+}

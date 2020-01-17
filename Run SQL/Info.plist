@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AMAccepts</key>
+	<dict>
+		<key>Container</key>
+		<string>List</string>
+		<key>Optional</key>
+		<true/>
+		<key>Types</key>
+		<array>
+			<string>com.apple.cocoa.string</string>
+		</array>
+	</dict>
+	<key>AMApplication</key>
+	<string>Automator</string>
+	<key>AMCanShowSelectedItemsWhenRun</key>
+	<false/>
+	<key>AMCanShowWhenRun</key>
+	<true/>
+	<key>AMCategory</key>
+	<string>AMCategoryUtilities</string>
+	<key>AMDefaultParameters</key>
+	<dict>
+		<key>outputFormal</key>
+		<integer>2</integer>
+		<key>headers</key>
+		<true/>
+		<key>rowLimit</key>
+		<integer>1000</integer>
+		<key>exampleSQL</key>
+		<string>SELECT * FROM x</string>
+	</dict>
+	<key>AMDescription</key>
+	<dict>
+		<key>AMDAlert</key>
+		<string>Be very careful with your SQL, you know you can break things</string>
+		<key>AMDInput</key>
+		<string>SQL Text</string>
+		<key>AMDNote</key>
+		<string>Thanks to great relational databases</string>
+		<key>AMDOptions</key>
+		<string>SQL Connection URL
+Row Limit, defaults to 1,000, set to 0 not to limit
+Output format in CSV or Dictionary
+Header if CSV format</string>
+		<key>AMDRelatedActions</key>
+		<string></string>
+		<key>AMDRequires</key>
+		<string>Requires the MySQL &amp; Postgres cliens tand OpenSSL to be installed via brew
+brew install mysql openssl</string>
+		<key>AMDResult</key>
+		<string>Outputs data in CSV, Text or List optionally with a header, or Dictionary fomats</string>
+		<key>AMDSummary</key>
+		<string>Runs the query input on the configured connection</string>
+		<key>AMDWebsite</key>
+		<string>N/A</string>
+	</dict>
+	<key>AMIconName</key>
+	<string>Database.icns</string>
+	<key>AMKeywords</key>
+	<array/>
+	<key>AMName</key>
+	<string>Run SQL</string>
+	<key>AMProvides</key>
+	<dict>
+		<key>Container</key>
+		<string>List</string>
+		<key>Types</key>
+		<array>
+			<string>com.apple.cocoa.string</string>
+		</array>
+	</dict>
+	<key>AMRequiredResources</key>
+	<array/>
+	<key>AMWarning</key>
+	<dict>
+		<key>Action</key>
+		<string>(* Action name to be suggested to add prior to this action to make the task safer, e.g. com.apple.Automator.CopyFiles, goes here. *)</string>
+		<key>ApplyButton</key>
+		<string>(* Button label for user to add proposed Action, e.g. Add. *)</string>
+		<key>IgnoreButton</key>
+		<string>(* Button label for user not to add proposed Action, e.g. Don&apos;t Add. *)</string>
+		<key>Level</key>
+		<integer>0</integer>
+		<key>Message</key>
+		<string>(* Warning message presented to user goes here. *)</string>
+	</dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleExecutable</key>
+	<string>$(EXECUTABLE_NAME)</string>
+	<key>CFBundleIdentifier</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>$(PRODUCT_NAME)</string>
+	<key>CFBundlePackageType</key>
+	<string>BNDL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.0</string>
+	<key>CFBundleVersion</key>
+	<string>1</string>
+	<key>NSHumanReadableCopyright</key>
+	<string>Copyright © 2020 Paul Schaap. All rights reserved.</string>
+	<key>NSPrincipalClass</key>
+	<string>Run_SQL</string>
+</dict>
+</plist>

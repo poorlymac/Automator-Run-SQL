@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="15705" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15705"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="Run_SQL">
+            <connections>
+                <outlet property="clientVersion" destination="bAn-xb-daE" id="804-qq-24I"/>
+                <outlet property="delimiter" destination="Y9d-pX-e9E" id="Mbo-8B-7Fh"/>
+                <outlet property="headersCheckbox" destination="Tsj-Q7-oBh" id="BjI-SO-rI2"/>
+                <outlet property="outputFormat" destination="raf-3K-aCx" id="hll-Gr-0Hl"/>
+                <outlet property="rowCounter" destination="zjE-gr-qgE" id="oCV-cI-0Md"/>
+                <outlet property="view" destination="47Y-Ci-255" id="jdu-ND-x6j"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="47Y-Ci-255" userLabel="View">
+            <rect key="frame" x="0.0" y="0.0" width="398" height="80"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <subviews>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ry7-6V-eCK">
+                    <rect key="frame" x="26" y="57" width="30" height="14"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="URL:" id="zb1-dv-YjU">
+                        <font key="font" metaFont="message" size="11"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Maa-b5-JGW">
+                    <rect key="frame" x="19" y="33" width="37" height="14"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Limit: " id="5v8-we-LCo">
+                        <font key="font" metaFont="message" size="11"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ar3-S2-ANL">
+                    <rect key="frame" x="245" y="10" width="52" height="14"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Delimiter" id="fkj-0x-1iL">
+                        <font key="font" metaFont="message" size="11"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Y9d-pX-e9E">
+                    <rect key="frame" x="227" y="6" width="15" height="21"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" enabled="NO" sendsActionOnEndEditing="YES" borderStyle="bezel" title=" " drawsBackground="YES" id="NtJ-nP-ihp">
+                        <font key="font" usesAppearanceFont="YES"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Be4-AL-bOR">
+                    <rect key="frame" x="8" y="11" width="48" height="14"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Format: " id="Tpb-I5-3TV">
+                        <font key="font" metaFont="message" size="11"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GvM-7X-qHD">
+                    <rect key="frame" x="62" y="55" width="316" height="19"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" placeholderString="mysql://user:pass@localhost:3306/database" drawsBackground="YES" id="ycg-dZ-oGq">
+                        <font key="font" metaFont="message" size="11"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                    <connections>
+                        <binding destination="aFj-Nx-tzi" name="value" keyPath="selection.connectionURL" id="Jyr-7j-Njf">
+                            <dictionary key="options">
+                                <bool key="NSContinuouslyUpdatesValue" value="YES"/>
+                                <string key="NSNullPlaceholder">mysql://user:pass@localhost:3306/database</string>
+                            </dictionary>
+                        </binding>
+                    </connections>
+                </textField>
+                <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="55C-TU-uhY">
+                    <rect key="frame" x="62" y="31" width="49" height="19"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" placeholderString="1000" drawsBackground="YES" id="1pS-JM-vOY">
+                        <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" formatWidth="-1" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="Fwy-Vl-xyg"/>
+                        <font key="font" metaFont="message" size="11"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                    <connections>
+                        <binding destination="aFj-Nx-tzi" name="value" keyPath="selection.rowLimit" id="yib-XD-UVx">
+                            <dictionary key="options">
+                                <bool key="NSContinuouslyUpdatesValue" value="YES"/>
+                            </dictionary>
+                        </binding>
+                    </connections>
+                </textField>
+                <popUpButton verticalHuggingPriority="750" id="raf-3K-aCx">
+                    <rect key="frame" x="60" y="3" width="100" height="26"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <popUpButtonCell key="cell" type="push" title="CSV" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="oYi-lu-uxv" id="YVF-uD-gal">
+                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                        <menu key="menu" id="bKe-Xj-U4l">
+                            <items>
+                                <menuItem title="CSV" state="on" id="oYi-lu-uxv"/>
+                                <menuItem title="Text" id="BJM-h0-lUn"/>
+                                <menuItem title="List" id="7IG-VS-PrD"/>
+                                <menuItem title="Dictionary" id="zfQ-30-IrZ"/>
+                            </items>
+                        </menu>
+                    </popUpButtonCell>
+                    <connections>
+                        <action selector="actionButtonWithSender:" target="-2" id="BXS-Fs-4D9"/>
+                    </connections>
+                </popUpButton>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zjE-gr-qgE">
+                    <rect key="frame" x="117" y="33" width="263" height="14"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" controlSize="small" lineBreakMode="clipping" alignment="left" title="Count ..." id="AGU-pl-h2J">
+                        <font key="font" metaFont="message" size="11"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                    <connections>
+                        <binding destination="aFj-Nx-tzi" name="value" keyPath="selection.rowCount" id="KdB-3C-2lK">
+                            <dictionary key="options">
+                                <bool key="NSContinuouslyUpdatesValue" value="YES"/>
+                            </dictionary>
+                        </binding>
+                    </connections>
+                </textField>
+                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Tsj-Q7-oBh">
+                    <rect key="frame" x="162" y="7" width="61" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="check" title="Header" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="ogq-xO-1Td">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="message" size="11"/>
+                    </buttonCell>
+                    <connections>
+                        <binding destination="aFj-Nx-tzi" name="value" keyPath="selection.headers" id="T0j-ju-s2p">
+                            <dictionary key="options">
+                                <bool key="NSValidatesImmediately" value="YES"/>
+                            </dictionary>
+                        </binding>
+                    </connections>
+                </button>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bAn-xb-daE">
+                    <rect key="frame" x="242" y="0.0" width="158" height="50"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" controlSize="small" lineBreakMode="clipping" alignment="right" title="V..." id="wf0-PE-Yon">
+                        <font key="font" metaFont="message" size="11"/>
+                        <color key="textColor" name="tertiaryLabelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                    <connections>
+                        <binding destination="aFj-Nx-tzi" name="value" keyPath="selection.clientVersion" id="egV-1m-iTJ">
+                            <dictionary key="options">
+                                <bool key="NSContinuouslyUpdatesValue" value="YES"/>
+                            </dictionary>
+                        </binding>
+                    </connections>
+                </textField>
+            </subviews>
+            <point key="canvasLocation" x="-86" y="-95"/>
+        </customView>
+        <objectController id="aFj-Nx-tzi" userLabel="Parameters">
+            <declaredKeys>
+                <string>exampleSQL</string>
+            </declaredKeys>
+            <connections>
+                <binding destination="-2" name="contentObject" keyPath="parameters" id="3tH-Nj-Jac"/>
+            </connections>
+        </objectController>
+    </objects>
+</document>

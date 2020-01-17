@@ -1,0 +1,34 @@
+/* AMApplication localized strings */
+/* e.g. "TextEdit" = "TextEdit"; */
+
+/* AMCategory localized strings */
+/* e.g. "Text" = "Text"; */
+
+AMName = "Run SQL";
+
+/* AMDefaultParameters localized values */
+/* e.g. myDefaultIntegerParameter = 0; */
+/* e.g. myDefaultStringParameter = "Default String Value"; */
+
+/* AMDescription localized strings */
+AMDAlert = "Be very careful with your SQL, you know you can break things";
+AMDInput = "SQL Text";
+AMDNote = "Thanks to relational databases";
+AMDOptions = "SQL Connection URL
+Row Limit, defaults to 1,000, set to 0 not to limit
+Output format in CSV, Text, List or Dictionary
+Optional Header if CSV, Text or List format";
+AMDResult = "";
+AMDRequires = "Requires the MySQL & Postgres clients and OpenSSL to be installed via brew
+brew install mysql libpq openssl";
+AMDSummary = "Runs the query input on the configured connection";
+AMDWebsite = "N/A";
+
+/* AMKeyword localized strings */
+/* e.g. "Filter" = "Filter"; */
+
+/* AMWarning localized strings */
+ApplyButton = "(* Button label for user to add proposed Action, e.g. Add. *)";
+IgnoreButton = "(* Button label for user not to add proposed Action, e.g. Don't Add. *)";
+Message = "(* Warning message presented to user goes here. *)";
+

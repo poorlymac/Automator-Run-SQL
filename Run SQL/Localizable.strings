@@ -1,0 +1,8 @@
+/* 
+  Localizable.strings
+  Run SQL
+ 
+  "ERROR_PLACEHOLDER" = "Quoted error message in current language (be sure to end with semi-colon).";
+*/
+
+"EXAMPLE_KEY" = "This is an example message for key: EXAMPLE_KEY";
