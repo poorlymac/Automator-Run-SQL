@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -104,7 +104,7 @@
 				};
 			};
 			buildConfigurationList = 931F56F823CBF71A00D638DF /* Build configuration list for PBXProject "Run SQL" */;
-			compatibilityVersion = "Xcode 9.3";
+			compatibilityVersion = "Xcode 11.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -320,6 +320,8 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/usr/local/lib,
+					/usr/local/Cellar/postgresql/12.1/lib,
+					/usr/local/Cellar/mysql/8.0.19/lib,
 					/usr/lib,
 				);
 				OTHER_LDFLAGS = (
@@ -327,6 +329,7 @@
 					"-lpq",
 					"-lssl",
 					"-lcrypto",
+					"-lsqlite3",
 				);
 				OTHER_OSAFLAGS = "-x -t 0 -c 0";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.poorly.Automator-SQL";
@@ -362,6 +365,8 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/usr/local/lib,
+					/usr/local/Cellar/postgresql/12.1/lib,
+					/usr/local/Cellar/mysql/8.0.19/lib,
 					/usr/lib,
 				);
 				OTHER_LDFLAGS = (
@@ -369,6 +374,7 @@
 					"-lpq",
 					"-lssl",
 					"-lcrypto",
+					"-lsqlite3",
 				);
 				OTHER_OSAFLAGS = "-x -t 0 -c 0";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.poorly.Automator-SQL";

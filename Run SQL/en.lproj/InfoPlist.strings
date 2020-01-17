@@ -19,7 +19,7 @@ Row Limit, defaults to 1,000, set to 0 not to limit
 Output format in CSV, Text, List or Dictionary
 Optional Header if CSV, Text or List format";
 AMDResult = "";
-AMDRequires = "Requires the MySQL & Postgres clients and OpenSSL to be installed via brew
+AMDRequires = "Requires the MySQL, Postgres & SQLite clients and OpenSSL to be installed via brew
 brew install mysql libpq openssl";
 AMDSummary = "Runs the query input on the configured connection";
 AMDWebsite = "N/A";

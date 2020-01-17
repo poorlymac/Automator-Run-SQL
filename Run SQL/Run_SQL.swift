@@ -19,7 +19,7 @@ class Run_SQL: AMBundleAction {
     @IBOutlet weak var outputFormat: NSPopUpButton!
     @IBOutlet weak var headersCheckbox: NSButton!
     @IBOutlet weak var delimiter: NSTextField!
-    let supportedDatabases = ["mysql", "postgresql"]
+    let supportedDatabases = ["mysql", "postgresql", "sqlite"]
 
     override func run(withInput input: Any?) throws -> Any {
         
@@ -59,16 +59,14 @@ class Run_SQL: AMBundleAction {
 
         // Connect to database
         let url = URL(string: connectionURL)
-        let database = url?.scheme ?? ""
+        let database = (url?.scheme ?? "").lowercased()
         if (!supportedDatabases.contains(database)) {
             throw NSError(domain:"Unsupported Database", code:-1, userInfo:nil)
         }
         
         var output:Any = ""
-        var myConn:UnsafeMutablePointer<MYSQL>?
-        var pqConn:OpaquePointer?
         if(database == "mysql") {
-            myConn = mysql_init(nil)
+            let myConn = mysql_init(nil)
             if (myConn == nil) {
                 throw NSError(domain:"Could not initialise database connection", code:-1, userInfo:nil)
             }
@@ -87,20 +85,27 @@ class Run_SQL: AMBundleAction {
             // Note this also closes the connection
             try output = query_mysql(myConn: myConn, SQL: SQL, format: format!, headers: headers, rowLimit: rowLimit)
         } else if (database == "postgresql") {
-            pqConn = PQconnectdb(connectionURL)
+            let pqConn = PQconnectdb(connectionURL)
             if (PQstatus(pqConn) != CONNECTION_OK) {
                 let errorMessage = String(validatingUTF8: PQerrorMessage(pqConn)) ?? ""
                 throw NSError(domain:"Could not create database connection" + errorMessage, code:-1, userInfo:nil)
             }
             try output = query_postgresql(pqConn: pqConn, SQL: SQL, format: format!, headers: headers, rowLimit: rowLimit)
+        } else if (database == "sqlite") {
+            var slConn:OpaquePointer?
+            let cRes = sqlite3_open_v2(url?.path ?? "", &slConn, SQLITE_OPEN_READWRITE, nil)
+            if (cRes != SQLITE_OK) {
+                let errorMessage = String(validatingUTF8: sqlite3_errmsg(slConn)) ?? ""
+                throw NSError(domain:"Could not create database connection to \(url?.path ?? "") ERROR:\(errorMessage)", code:-1, userInfo:nil)
+            }
+            try output = query_sqlite(slConn: slConn, SQL: SQL, format: format!, headers: headers, rowLimit: rowLimit)
         }
         
         // LOCALIZED STRINGS
         // use getLocalizedStringForKey("KEY") to retrieve matched string in Localizable.strings file
         // let localString: String = getLocalizedStringForKey(key: "EXAMPLE_KEY")
         // os_log("Localized string: %{public}@", localString)
-        
-        // Return in requested format
+
         return output
     }
 
@@ -112,7 +117,8 @@ class Run_SQL: AMBundleAction {
 //        let pqVersion = "\(Int(round(pqClientInfo/10000))).\(Int(round(pqClientInfo/100) - round(pqClientInfo/10000) * 100)).\(Int(pqClientInfo - round(pqClientInfo/100)*100))"
         let pqClientInfo = String(Int(PQlibVersion()))
         let pqVersion = "\(Int(pqClientInfo.dropLast(4)) ?? 0).\(Int(pqClientInfo.suffix(4).prefix(2)) ?? 0).\(Int(pqClientInfo.suffix(2)) ?? 0)"
-        clientVersion.stringValue = "MySQL: \(myClientInfo)\nPostgres: \(pqVersion)"
+        let slClientInfo = String(validatingUTF8: sqlite3_libversion()) ?? ""
+        clientVersion.stringValue = "MySQL: \(myClientInfo)\nPostgres: \(pqVersion)\nSQLite: \(slClientInfo)"
     }
     
     // Requests the action to update its user interface from its stored parameters, which have changed.
@@ -308,12 +314,10 @@ class Run_SQL: AMBundleAction {
                 }
                 if (format == "Dictionary") {
                     dic.append(dat)
+                } else if (format == "List") {
+                    arr.append(rws)
                 } else {
-                    if (format == "List") {
-                        arr.append(rws)
-                    } else {
-                        str += rws
-                    }
+                    str += rws
                 }
                 
                 // Update progress
@@ -434,12 +438,10 @@ class Run_SQL: AMBundleAction {
             }
             if (format == "Dictionary") {
                 dic.append(dat)
+            } else if (format == "List") {
+                arr.append(rws)
             } else {
-                if (format == "List") {
-                    arr.append(rws)
-                } else {
-                    str += rws
-                }
+                str += rws
             }
             
             // Update progress
@@ -456,6 +458,121 @@ class Run_SQL: AMBundleAction {
         PQclear(queryResult);
         PQfinish(pqConn);
         
+        // Return in requested format
+        if (format == "Dictionary") {
+            return dic
+        } else if (format == "List") {
+            return arr
+        } else {
+            return str
+        }
+    }
+    
+    func query_sqlite(slConn: OpaquePointer?, SQL: String, format:String, headers:Bool, rowLimit:Int) throws -> Any {
+        // Setup
+        var str = ""
+        var hdr = [Int: String]()
+        var dat = [String: String]()
+        var arr:[String] = []
+        var dic = Array([])
+        var del = delimiter.stringValue
+        var ret = "\n"
+        // Use CSV rules
+        if(format == "CSV") {
+            del = ","
+            ret = "\r\n"
+        }
+        
+        var queryResult:OpaquePointer?
+        var unused:UnsafePointer<Int8>?
+        let queryPrepare = sqlite3_prepare_v2(slConn, SQL, -1, &queryResult, &unused)
+        if (queryPrepare != SQLITE_OK ) {
+            let errorMessage = String(validatingUTF8: sqlite3_errmsg(slConn)) ?? ""
+            sqlite3_free(&queryResult)
+            sqlite3_close(slConn)
+            os_log("Error Running ", SQL, " ", errorMessage)
+            throw NSError(domain:"Error (\(errorMessage)) running: " + SQL, code:-1, userInfo:nil)
+        }
+        var x = 0;
+        let fieldCount = sqlite3_column_count(queryResult)
+        // Setup headers
+        var headertext = ""
+        var colName = ""
+        for field in 0...(fieldCount - 1) {
+            colName = String(cString:sqlite3_column_name(queryResult, field))
+            hdr[Int(field)] = colName
+            if (format == "CSV") {
+                colName = "\"" + (colName).replacingOccurrences(of: "\"", with: "\"\"") + "\""
+            }
+            if (field == fieldCount - 1) {
+                if (format == "List") {
+                    headertext += "\(colName)"
+                } else {
+                    headertext += "\(colName)\(ret)"
+                }
+            } else {
+                headertext += "\(colName)\(del)"
+            }
+        }
+        if (headers && format != "Dictionary") {
+            if (format == "List") {
+                arr.append(headertext)
+            } else {
+                str += headertext
+            }
+        }
+
+        var rowCount = 0
+        var row = sqlite3_step(queryResult)
+        while (row == SQLITE_ROW) {
+            rowCount+=1
+            if(rowLimit == 0 || rowCount <= rowLimit) {
+                x+=1
+                var col = ""
+                var rws = ""
+                for field in 0...(fieldCount - 1) {
+                    if (sqlite3_column_type(queryResult, field) == SQLITE_NULL) {
+                        col = ""
+                    } else {
+                        col = String(cString: sqlite3_column_text(queryResult, field))
+                    }
+                    if (format == "Dictionary") {
+                        dat[String(hdr[Int(field)]!)] = col
+                    } else {
+                        if (format == "CSV" && (col.contains("\"") || col.contains(",") || col.contains("\r") || col.contains("\n"))) {
+                            col = "\"" + col.replacingOccurrences(of: "\"", with: "\"\"") + "\""
+                        }
+                        if (field == fieldCount - 1) {
+                            if (format == "List") {
+                                rws += "\(col)"
+                            } else {
+                                rws += "\(col)\(ret)"
+                            }
+                        } else {
+                            rws += "\(col)\(del)"
+                        }
+                    }
+                }
+                if (format == "Dictionary") {
+                    dic.append(dat)
+                } else if (format == "List") {
+                    arr.append(rws)
+                } else {
+                    str += rws
+                }
+            }
+            row = sqlite3_step(queryResult)
+        }
+        sqlite3_finalize(queryResult)
+        sqlite3_close(slConn)
+
+        // Get counts
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .decimal
+        let rowCountString = numberFormatter.string(from: NSNumber(value: rowCount))!
+        let retCountString = numberFormatter.string(from: NSNumber(value: x))!
+        rowCounter.stringValue = String(format: "Count: %@ (%@)", arguments: [rowCountString, retCountString])
+
         // Return in requested format
         if (format == "Dictionary") {
             return dic
