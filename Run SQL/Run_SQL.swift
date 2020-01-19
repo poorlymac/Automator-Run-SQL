@@ -19,7 +19,13 @@ class Run_SQL: AMBundleAction {
     @IBOutlet weak var outputFormat: NSPopUpButton!
     @IBOutlet weak var headersCheckbox: NSButton!
     @IBOutlet weak var delimiter: NSTextField!
-    let supportedDatabases = ["mysql", "postgresql", "sqlite"]
+    let supportedDatabases = ["mysql", "postgresql", "sqlite", "mssql", "sqlserver"]
+    struct Options {
+        var servername:String
+        var dbname:String
+        var username:String
+        var password:String
+    }
 
     override func run(withInput input: Any?) throws -> Any {
         
@@ -99,6 +105,55 @@ class Run_SQL: AMBundleAction {
                 throw NSError(domain:"Could not create database connection to \(url?.path ?? "") ERROR:\(errorMessage)", code:-1, userInfo:nil)
             }
             try output = query_sqlite(slConn: slConn, SQL: SQL, format: format!, headers: headers, rowLimit: rowLimit)
+        } else if (database == "mssql" || database == "sqlserver") {
+            // Error Handler
+            let errHandler : @convention(c) (
+                _ msComm:OpaquePointer?,
+                _ severity:Int32,
+                _ dberr:Int32,
+                _ oserr:Int32,
+                _ dberrstr:UnsafeMutablePointer<Int8>?,
+                _ oserrstr:UnsafeMutablePointer<Int8>?) -> Int32 = {_,_,_,_,_,_ in
+                return INT_CANCEL
+            }
+            // Message Handler
+            let msgHandler : @convention(c) (
+                _ msComm:OpaquePointer?,
+                _ msgno:Int32,
+                _ msgstate:Int32,
+                _ severity:Int32,
+                _ msgtext:UnsafeMutablePointer<Int8>?,
+                _ srvname:UnsafeMutablePointer<Int8>?,
+                _ procname:UnsafeMutablePointer<Int8>?,
+                _ line:Int32) -> Int32 = {_,_,_,_,_,_,_,_ in
+                return INT_EXIT
+            }
+            let options = Options(
+                servername:url?.host ?? "",
+                dbname:url?.path.components(separatedBy: "/")[1] ?? "",
+                username:url?.user ?? "",
+                password:url?.password ?? ""
+            )
+            if (dbinit() == FAIL) {
+                throw NSError(domain:"Could not initialise database library", code:-1, userInfo:nil)
+            }
+            let login = dblogin()
+            if (login == nil) {
+                throw NSError(domain:"Could not initialise database login library", code:-1, userInfo:nil)
+            }
+            dberrhandle(errHandler)
+            dbmsghandle(msgHandler)
+            dbsetlname(login, "t0001",            DBSETAPP   )
+            dbsetlname(login, options.dbname,     DBSETDBNAME)
+            dbsetlname(login, options.username,   DBSETUSER  )
+            dbsetlname(login, options.password,   DBSETPWD   )
+            dbsetlogintime(4)
+            var msConn:OpaquePointer?
+            msConn = dbopen(login, options.servername)
+            if (msConn == nil) {
+                throw NSError(domain:"Could not login to database", code:-1, userInfo:nil)
+            }
+            try output = query_mssql(msConn: msConn, SQL: SQL, format: format!, headers: headers, rowLimit: rowLimit)
         }
         
         // LOCALIZED STRINGS
@@ -109,12 +164,10 @@ class Run_SQL: AMBundleAction {
         return output
     }
 
+    
     // Invoked when the action is first added to a workflow, allowing it to initialize its user interface.
 	override func opened(){
         let myClientInfo = String(cString: mysql_get_client_info())
-        // Compiler gets really slow doing it this way
-//        let pqClientInfo = Float(Int(PQlibVersion()))
-//        let pqVersion = "\(Int(round(pqClientInfo/10000))).\(Int(round(pqClientInfo/100) - round(pqClientInfo/10000) * 100)).\(Int(pqClientInfo - round(pqClientInfo/100)*100))"
         let pqClientInfo = String(Int(PQlibVersion()))
         let pqVersion = "\(Int(pqClientInfo.dropLast(4)) ?? 0).\(Int(pqClientInfo.suffix(4).prefix(2)) ?? 0).\(Int(pqClientInfo.suffix(2)) ?? 0)"
         let slClientInfo = String(validatingUTF8: sqlite3_libversion()) ?? ""
@@ -215,7 +268,7 @@ class Run_SQL: AMBundleAction {
 		}
 		return false
 	}
-    
+
     func query_mysql(myConn: UnsafeMutablePointer<MYSQL>?, SQL: String, format:String, headers:Bool, rowLimit:Int) throws -> Any {
         // Setup
         var str = ""
@@ -582,4 +635,155 @@ class Run_SQL: AMBundleAction {
             return str
         }
     }
+    
+    func query_mssql(msConn: OpaquePointer?, SQL: String, format:String, headers:Bool, rowLimit:Int) throws -> Any {
+        // Setup
+        var str = ""
+        var hdr = [Int: String]()
+        var dat = [String: String]()
+        var arr:[String] = []
+        var dic = Array([])
+        var del = delimiter.stringValue
+        var ret = "\n"
+        // Use CSV rules
+        if(format == "CSV") {
+            del = ","
+            ret = "\r\n"
+        }
+        // Prepare Query
+        let queryPrepare = dbcmd(msConn, SQL)
+        if (queryPrepare == FAIL) {
+            // TODO fill in
+            let errorMessage = "unkown" //String(validatingUTF8: sqlite3_errmsg(slConn)) ?? ""
+//            sqlite3_free(&queryResult)
+            dbclose(msConn)
+            os_log("Error Running ", SQL, " ", errorMessage)
+            throw NSError(domain:"Error (\(errorMessage)) preparing SQL: " + SQL, code:-1, userInfo:nil)
+        }
+        // Run Query
+        let queryResult = dbsqlexec(msConn)
+        if (queryResult == FAIL) {
+            // TODO fill in
+            let errorMessage = "unkown" //String(validatingUTF8: sqlite3_errmsg(slConn)) ?? ""
+            //            sqlite3_free(&queryResult)
+            dbclose(msConn)
+            os_log("Error Running ", SQL, " ", errorMessage)
+            throw NSError(domain:"Error (\(errorMessage)) running SQL: " + SQL, code:-1, userInfo:nil)
+        }
+
+        if (dbresults(msConn) == SUCCEED) {
+            var x = 0;
+            var rowCount = 0
+            let fieldCount:Int32 = dbnumcols(msConn)
+            os_log("fieldCount is: %d", fieldCount)
+            // Setup headers
+            var headertext = ""
+            var colName = ""
+            // Kill me now, it took me ages to figure out they count from 1
+            for field in 1...(fieldCount) {
+                colName = String(cString:dbcolname(msConn, field))
+                hdr[Int(field)] = colName
+                if (format == "CSV") {
+                    colName = "\"" + (colName).replacingOccurrences(of: "\"", with: "\"\"") + "\""
+                }
+                if (field == fieldCount) {
+                    if (format == "List") {
+                        headertext += "\(colName)"
+                    } else {
+                        headertext += "\(colName)\(ret)"
+                    }
+                } else {
+                    headertext += "\(colName)\(del)"
+                }
+            }
+            if (headers && format != "Dictionary") {
+                if (format == "List") {
+                    arr.append(headertext)
+                } else {
+                    str += headertext
+                }
+            }
+            var rowCode = dbnextrow(msConn)
+            while(rowCode != NO_MORE_ROWS) {
+                rowCount+=1
+                os_log("rowCount: %d", rowCount)
+                if(rowLimit == 0 || rowCount <= rowLimit) {
+                    x+=1
+                    var col = ""
+                    var rws = ""
+                    for field in 1...(fieldCount) {
+                        switch rowCode {
+                        case REG_ROW:
+                            let colType = Int(dbcoltype(msConn, field))
+                            let data = dbdata(msConn, field)
+                            if (data == nil) {
+                                col = ""
+                            } else {
+                                if ([SYBCHAR,SYBVARCHAR,SYBTEXT].contains(colType)) {
+                                    col = String(cString:data!)
+                                } else {
+                                    col = "\(data!.move()) \(colType)"
+                                }
+                            }
+                            if (format == "Dictionary") {
+                                dat[String(hdr[Int(field)]!)] = col
+                            } else {
+                                if (format == "CSV" && (col.contains("\"") || col.contains(",") || col.contains("\r") || col.contains("\n"))) {
+                                    col = "\"" + col.replacingOccurrences(of: "\"", with: "\"\"") + "\""
+                                }
+                                if (field == fieldCount) {
+                                    if (format == "List") {
+                                        rws += "\(col)"
+                                    } else {
+                                        rws += "\(col)\(ret)"
+                                    }
+                                } else {
+                                    rws += "\(col)\(del)"
+                                }
+                            }
+                            break;
+                        case BUF_FULL:
+                            rws = "BUF_FULL \(field)"
+                            break
+                        case FAIL:
+                            rws = "FAIL \(field)"
+                            break
+                        default:
+                            rws = "Data for computeid %d ignored \(rowCode)"
+                            os_log("Data for computeid %d ignored\n", rowCode)
+                        }
+                    }
+                    if (format == "Dictionary") {
+                        dic.append(dat)
+                    } else if (format == "List") {
+                        arr.append(rws)
+                    } else {
+                        str += rws
+                    }
+                }
+                rowCode = dbnextrow(msConn)
+            }
+            dbclose(msConn)
+            dbexit()
+
+            // Get counts
+            let numberFormatter = NumberFormatter()
+            numberFormatter.numberStyle = .decimal
+            let rowCountString = numberFormatter.string(from: NSNumber(value: rowCount))!
+            let retCountString = numberFormatter.string(from: NSNumber(value: x))!
+            rowCounter.stringValue = String(format: "Count: %@ (%@)", arguments: [rowCountString, retCountString])
+        } else {
+            os_log("Result not SUCCEED ...")
+        }
+        
+        // Return in requested format
+        if (format == "Dictionary") {
+            return dic
+        } else if (format == "List") {
+            return arr
+        } else {
+            return str
+        }
+    }
 }
+

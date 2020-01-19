@@ -4,3 +4,4 @@
 #import "mysql/mysql.h"
 #include <libpq-fe.h>
 #include <sqlite3.h>
+#include <sybdb.h>
