@@ -47,9 +47,6 @@ Output format in CSV or Dictionary
 Header if CSV format</string>
 		<key>AMDRelatedActions</key>
 		<string></string>
-		<key>AMDRequires</key>
-		<string>Requires the MySQL, Postgres &amp; SQLite clients and OpenSSL to be installed via brew
-brew install mysql openssl</string>
 		<key>AMDResult</key>
 		<string>Outputs data in CSV, Text or List optionally with a header, or Dictionary fomats</string>
 		<key>AMDSummary</key>
