@@ -22,6 +22,7 @@ class Run_SQL: AMBundleAction {
     let supportedDatabases = ["mysql", "postgresql", "sqlite", "mssql", "sqlserver"]
     struct Options {
         var servername:String
+        var port:Int
         var dbname:String
         var username:String
         var password:String
@@ -137,10 +138,11 @@ class Run_SQL: AMBundleAction {
                 return INT_EXIT
             }
             let options = Options(
-                servername:url?.host ?? "",
-                dbname:url?.path.components(separatedBy: "/")[1] ?? "",
-                username:url?.user ?? "",
-                password:url?.password ?? ""
+                servername: url?.host ?? "",
+                port:       url?.port ?? 1433,
+                dbname:     url?.path.components(separatedBy: "/")[1] ?? "",
+                username:   url?.user ?? "",
+                password:   url?.password ?? ""
             )
             if (dbinit() == FAIL) {
                 throw NSError(domain:"Could not initialise database library", code:-1, userInfo:nil)
@@ -157,7 +159,7 @@ class Run_SQL: AMBundleAction {
             dbsetlname(login, options.password,   DBSETPWD   )
             dbsetlogintime(4)
             var msConn:OpaquePointer?
-            msConn = dbopen(login, options.servername)
+            msConn = dbopen(login, "\(options.servername):\(options.port)")
             if (msConn == nil) {
                 throw NSError(domain:"Could not login to database", code:-1, userInfo:nil)
             }
