@@ -652,7 +652,7 @@ class Run_SQL: AMBundleAction {
         var dat = [String: String]()
         var arr:[String] = []
         var dic = Array([])
-        var del = ","
+        var del = delimiter.stringValue
         var ret = "\n"
         // Use CSV rules
         if(format == "CSV") {
