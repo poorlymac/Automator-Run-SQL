@@ -27,6 +27,14 @@ class Run_SQL: AMBundleAction {
         var password:String
     }
 
+    struct MSSQL_COLUMN {
+        var name:String
+        var buffer:UnsafeMutablePointer<BYTE>
+        var type:Int
+        var size:Int
+        var status:UnsafeMutablePointer<DBINT>
+    }
+
     override func run(withInput input: Any?) throws -> Any {
         
     	// NOTE: In os_log() non-static values are marked <private>, so generated values must be explicitly marked public.
@@ -171,7 +179,8 @@ class Run_SQL: AMBundleAction {
         let pqClientInfo = String(Int(PQlibVersion()))
         let pqVersion = "\(Int(pqClientInfo.dropLast(4)) ?? 0).\(Int(pqClientInfo.suffix(4).prefix(2)) ?? 0).\(Int(pqClientInfo.suffix(2)) ?? 0)"
         let slClientInfo = String(validatingUTF8: sqlite3_libversion()) ?? ""
-        clientVersion.stringValue = "MySQL: \(myClientInfo)\nPostgres: \(pqVersion)\nSQLite: \(slClientInfo)"
+        let msClientInto = String(cString: dbversion()).suffix(8)
+        clientVersion.stringValue = "MySQL: \(myClientInfo)\nPostgres: \(pqVersion)\nSQLite: \(slClientInfo)\nFreeTDS: \(msClientInto)"
     }
     
     // Requests the action to update its user interface from its stored parameters, which have changed.
@@ -643,7 +652,7 @@ class Run_SQL: AMBundleAction {
         var dat = [String: String]()
         var arr:[String] = []
         var dic = Array([])
-        var del = delimiter.stringValue
+        var del = ","
         var ret = "\n"
         // Use CSV rules
         if(format == "CSV") {
@@ -654,20 +663,17 @@ class Run_SQL: AMBundleAction {
         let queryPrepare = dbcmd(msConn, SQL)
         if (queryPrepare == FAIL) {
             // TODO fill in
-            let errorMessage = "unkown" //String(validatingUTF8: sqlite3_errmsg(slConn)) ?? ""
-//            sqlite3_free(&queryResult)
+            let errorMessage = "unkown"
             dbclose(msConn)
-            os_log("Error Running ", SQL, " ", errorMessage)
+            print("Error Running ", SQL, " ", errorMessage)
             throw NSError(domain:"Error (\(errorMessage)) preparing SQL: " + SQL, code:-1, userInfo:nil)
         }
         // Run Query
         let queryResult = dbsqlexec(msConn)
         if (queryResult == FAIL) {
-            // TODO fill in
-            let errorMessage = "unkown" //String(validatingUTF8: sqlite3_errmsg(slConn)) ?? ""
-            //            sqlite3_free(&queryResult)
+            let errorMessage = "unkown"
             dbclose(msConn)
-            os_log("Error Running ", SQL, " ", errorMessage)
+            print("Error Running ", SQL, " ", errorMessage)
             throw NSError(domain:"Error (\(errorMessage)) running SQL: " + SQL, code:-1, userInfo:nil)
         }
 
@@ -675,12 +681,40 @@ class Run_SQL: AMBundleAction {
             var x = 0;
             var rowCount = 0
             let fieldCount:Int32 = dbnumcols(msConn)
-            os_log("fieldCount is: %d", fieldCount)
             // Setup headers
             var headertext = ""
             var colName = ""
+            var columns:[Int32:MSSQL_COLUMN] = [:]
             // Kill me now, it took me ages to figure out they count from 1
             for field in 1...(fieldCount) {
+                let col_type = Int(dbcoltype(msConn, field))
+                let col_name = String(cString:dbcolname(msConn, field))
+                var col_size = Int(dbcollen(msConn, field))
+                if (SYBCHAR != col_type) {
+                    col_size = Int(dbprcollen(msConn, field))
+                    if (col_size > 255) {
+                        col_size = 255
+                    }
+                }
+                
+                var status:DBINT = 0
+                let pcol = MSSQL_COLUMN(
+                    name: col_name,
+                    buffer: calloc(1, Int(col_size + 1)).assumingMemoryBound(to: BYTE.self),
+                    type: col_type,
+                    size: col_size,
+                    status: &status
+                )
+                columns[field] = pcol
+                
+                // It seems when the buffer is creates size can go to 0
+                // Therefore if size is 0 get the current dbcollen again
+                if (pcol.size == 0) {
+                    dbbind(msConn, field, NTBSTRINGBIND, dbcollen(msConn, field) + 1, pcol.buffer)
+                } else {
+                    dbbind(msConn, field, NTBSTRINGBIND,        DBINT(pcol.size + 1), pcol.buffer)
+                }
+                dbnullbind(msConn, field, pcol.status)
                 colName = String(cString:dbcolname(msConn, field))
                 hdr[Int(field)] = colName
                 if (format == "CSV") {
@@ -706,24 +740,20 @@ class Run_SQL: AMBundleAction {
             var rowCode = dbnextrow(msConn)
             while(rowCode != NO_MORE_ROWS) {
                 rowCount+=1
-                os_log("rowCount: %d", rowCount)
                 if(rowLimit == 0 || rowCount <= rowLimit) {
                     x+=1
                     var col = ""
                     var rws = ""
+                    var column:MSSQL_COLUMN
                     for field in 1...(fieldCount) {
                         switch rowCode {
                         case REG_ROW:
-                            let colType = Int(dbcoltype(msConn, field))
                             let data = dbdata(msConn, field)
-                            if (data == nil) {
+                            column = columns[field]!
+                            if (data == nil || column.status.move() == -1) {
                                 col = ""
                             } else {
-                                if ([SYBCHAR,SYBVARCHAR,SYBTEXT].contains(colType)) {
-                                    col = String(cString:data!)
-                                } else {
-                                    col = "\(data!.move()) \(colType)"
-                                }
+                                col = String(cString: column.buffer)
                             }
                             if (format == "Dictionary") {
                                 dat[String(hdr[Int(field)]!)] = col
@@ -750,7 +780,7 @@ class Run_SQL: AMBundleAction {
                             break
                         default:
                             rws = "Data for computeid %d ignored \(rowCode)"
-                            os_log("Data for computeid %d ignored\n", rowCode)
+                            print("Data for computeid %d ignored\n", rowCode)
                         }
                     }
                     if (format == "Dictionary") {
@@ -763,17 +793,20 @@ class Run_SQL: AMBundleAction {
                 }
                 rowCode = dbnextrow(msConn)
             }
+            // Free callocations
+            for field in 1...(fieldCount) {
+                let column:MSSQL_COLUMN = columns[field]!
+                free(column.buffer)
+            }
+            dbfreebuf(msConn)
             dbclose(msConn)
             dbexit()
 
             // Get counts
             let numberFormatter = NumberFormatter()
             numberFormatter.numberStyle = .decimal
-            let rowCountString = numberFormatter.string(from: NSNumber(value: rowCount))!
-            let retCountString = numberFormatter.string(from: NSNumber(value: x))!
-            rowCounter.stringValue = String(format: "Count: %@ (%@)", arguments: [rowCountString, retCountString])
         } else {
-            os_log("Result not SUCCEED ...")
+            print("Result not SUCCEED ...")
         }
         
         // Return in requested format
@@ -786,4 +819,3 @@ class Run_SQL: AMBundleAction {
         }
     }
 }
-
