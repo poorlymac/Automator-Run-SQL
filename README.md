@@ -1,5 +1,5 @@
 # Automator-Run-SQL
-An Automator Action in Swift that uses native database libraries to run queries. Please keep in mind this is alpha quality code that I pulled together over a day, that said it works well for me 👍
+An Automator Action in Swift that uses native database libraries to run queries. Please keep in mind this is a very new development, that said it works well for me 👍
 
 # Supported
 * [MySQL](https://www.mysql.com) `mysql://username:password@hostname:port/database`
