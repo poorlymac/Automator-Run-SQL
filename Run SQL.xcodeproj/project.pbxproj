@@ -11,12 +11,12 @@
 		931F570623CBF71A00D638DF /* main.xib in Resources */ = {isa = PBXBuildFile; fileRef = 931F570423CBF71A00D638DF /* main.xib */; };
 		931F570A23CBF71A00D638DF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 931F570923CBF71A00D638DF /* Localizable.strings */; };
 		931F570E23CBF71A00D638DF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 931F570C23CBF71A00D638DF /* InfoPlist.strings */; };
-		936C53D323D27643007AFE6A /* libpq.5.12.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 936C53D223D27643007AFE6A /* libpq.5.12.dylib */; };
-		936C53D423D27647007AFE6A /* libpq.5.12.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 936C53D223D27643007AFE6A /* libpq.5.12.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		936C53D623D27678007AFE6A /* libmysqlclient.21.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 936C53D523D27678007AFE6A /* libmysqlclient.21.dylib */; };
-		936C53D823D2768D007AFE6A /* libsybdb.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 936C53D723D2768D007AFE6A /* libsybdb.5.dylib */; };
 		936C53D923D27698007AFE6A /* libmysqlclient.21.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 936C53D523D27678007AFE6A /* libmysqlclient.21.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		936C53DA23D2769A007AFE6A /* libsybdb.5.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 936C53D723D2768D007AFE6A /* libsybdb.5.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		9391AB43244A7A6F00092337 /* libsybdb.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9391AB42244A7A6F00092337 /* libsybdb.5.dylib */; };
+		9391AB45244A7ADF00092337 /* libsybdb.5.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9391AB42244A7A6F00092337 /* libsybdb.5.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		9391AB47244A7BCB00092337 /* libpq.5.12.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9391AB46244A7BCB00092337 /* libpq.5.12.dylib */; };
+		9391AB48244A7BDA00092337 /* libpq.5.12.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9391AB46244A7BCB00092337 /* libpq.5.12.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		93AD5F0823D1248E002C556F /* Database.icns in Resources */ = {isa = PBXBuildFile; fileRef = 93AD5F0723D1248E002C556F /* Database.icns */; };
 /* End PBXBuildFile section */
 
@@ -27,9 +27,9 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				936C53D423D27647007AFE6A /* libpq.5.12.dylib in CopyFiles */,
+				9391AB48244A7BDA00092337 /* libpq.5.12.dylib in CopyFiles */,
+				9391AB45244A7ADF00092337 /* libsybdb.5.dylib in CopyFiles */,
 				936C53D923D27698007AFE6A /* libmysqlclient.21.dylib in CopyFiles */,
-				936C53DA23D2769A007AFE6A /* libsybdb.5.dylib in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -43,9 +43,9 @@
 		931F570923CBF71A00D638DF /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		931F570B23CBF71A00D638DF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		931F570D23CBF71A00D638DF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		936C53D223D27643007AFE6A /* libpq.5.12.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libpq.5.12.dylib; path = "/Users/schaappa/Development/Automator-Run-SQL/../../../../usr/local/Cellar/postgresql/12.1/lib/libpq.5.12.dylib"; sourceTree = "<absolute>"; };
 		936C53D523D27678007AFE6A /* libmysqlclient.21.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libmysqlclient.21.dylib; path = ../../../../usr/local/Cellar/mysql/8.0.19/lib/libmysqlclient.21.dylib; sourceTree = "<group>"; };
-		936C53D723D2768D007AFE6A /* libsybdb.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsybdb.5.dylib; path = ../../../../usr/local/Cellar/freetds/1.1.24/lib/libsybdb.5.dylib; sourceTree = "<group>"; };
+		9391AB42244A7A6F00092337 /* libsybdb.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsybdb.5.dylib; path = ../../../../usr/local/Cellar/freetds/1.1.32/lib/libsybdb.5.dylib; sourceTree = "<group>"; };
+		9391AB46244A7BCB00092337 /* libpq.5.12.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libpq.5.12.dylib; path = ../../../../usr/local/Cellar/libpq/12.2_1/lib/libpq.5.12.dylib; sourceTree = "<group>"; };
 		93AD5F0723D1248E002C556F /* Database.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Database.icns; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -55,8 +55,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				936C53D623D27678007AFE6A /* libmysqlclient.21.dylib in Frameworks */,
-				936C53D323D27643007AFE6A /* libpq.5.12.dylib in Frameworks */,
-				936C53D823D2768D007AFE6A /* libsybdb.5.dylib in Frameworks */,
+				9391AB47244A7BCB00092337 /* libpq.5.12.dylib in Frameworks */,
+				9391AB43244A7A6F00092337 /* libsybdb.5.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -97,9 +97,9 @@
 		936C53BF23D274B2007AFE6A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				936C53D223D27643007AFE6A /* libpq.5.12.dylib */,
+				9391AB46244A7BCB00092337 /* libpq.5.12.dylib */,
 				936C53D523D27678007AFE6A /* libmysqlclient.21.dylib */,
-				936C53D723D2768D007AFE6A /* libsybdb.5.dylib */,
+				9391AB42244A7A6F00092337 /* libsybdb.5.dylib */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -133,7 +133,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1130;
-				LastUpgradeCheck = 1130;
+				LastUpgradeCheck = 1140;
 				ORGANIZATIONNAME = "Paul Schaap";
 				TargetAttributes = {
 					931F56FD23CBF71A00D638DF = {
@@ -331,6 +331,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
 			};
 			name = Release;
 		};
@@ -346,7 +347,7 @@
 					/usr/local/Cellar/openssl/1.0.2t/include,
 					/usr/local/Cellar/mysql/8.0.19/include,
 					/usr/local/Cellar/libpq/12.1_1/include,
-					/usr/local/Cellar/freetds/1.1.24/include,
+					/usr/local/Cellar/freetds/1.1.32/include,
 					/usr/local/include,
 					/usr/include,
 				);
@@ -360,12 +361,14 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/usr/local/lib,
-					/usr/local/Cellar/postgresql/12.1/lib,
+					/usr/local/Cellar/postgresql/12.2/lib,
 					/usr/local/Cellar/mysql/8.0.19/lib,
-					/usr/local/Cellar/freetds/1.1.24/lib,
+					/usr/local/Cellar/freetds/1.1.32/lib,
 					/usr/lib,
 					"$(PROJECT_DIR)",
+					/usr/local/Cellar/libpq/12.2_1/lib,
 				);
+				MARKETING_VERSION = 1.1;
 				OTHER_LDFLAGS = (
 					"-lmysqlclient",
 					"-lpq",
@@ -395,7 +398,7 @@
 					/usr/local/Cellar/openssl/1.0.2t/include,
 					/usr/local/Cellar/mysql/8.0.19/include,
 					/usr/local/Cellar/libpq/12.1_1/include,
-					/usr/local/Cellar/freetds/1.1.24/include,
+					/usr/local/Cellar/freetds/1.1.32/include,
 					/usr/local/include,
 					/usr/include,
 				);
@@ -409,12 +412,14 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/usr/local/lib,
-					/usr/local/Cellar/postgresql/12.1/lib,
+					/usr/local/Cellar/postgresql/12.2/lib,
 					/usr/local/Cellar/mysql/8.0.19/lib,
-					/usr/local/Cellar/freetds/1.1.24/lib,
+					/usr/local/Cellar/freetds/1.1.32/lib,
 					/usr/lib,
 					"$(PROJECT_DIR)",
+					/usr/local/Cellar/libpq/12.2_1/lib,
 				);
+				MARKETING_VERSION = 1.1;
 				OTHER_LDFLAGS = (
 					"-lmysqlclient",
 					"-lpq",
