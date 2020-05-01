@@ -18,6 +18,8 @@
 		9391AB47244A7BCB00092337 /* libpq.5.12.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9391AB46244A7BCB00092337 /* libpq.5.12.dylib */; };
 		9391AB48244A7BDA00092337 /* libpq.5.12.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9391AB46244A7BCB00092337 /* libpq.5.12.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		93AD5F0823D1248E002C556F /* Database.icns in Resources */ = {isa = PBXBuildFile; fileRef = 93AD5F0723D1248E002C556F /* Database.icns */; };
+		93DB3C04245C02C500222C8E /* libssl.1.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 93DB3C03245C02C500222C8E /* libssl.1.1.dylib */; };
+		93DB3C06245C049000222C8E /* libssl.1.1.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 93DB3C05245C049000222C8E /* libssl.1.1.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -27,6 +29,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				93DB3C06245C049000222C8E /* libssl.1.1.dylib in CopyFiles */,
 				9391AB48244A7BDA00092337 /* libpq.5.12.dylib in CopyFiles */,
 				9391AB45244A7ADF00092337 /* libsybdb.5.dylib in CopyFiles */,
 				936C53D923D27698007AFE6A /* libmysqlclient.21.dylib in CopyFiles */,
@@ -44,9 +47,11 @@
 		931F570B23CBF71A00D638DF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		931F570D23CBF71A00D638DF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		936C53D523D27678007AFE6A /* libmysqlclient.21.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libmysqlclient.21.dylib; path = ../../../../usr/local/Cellar/mysql/8.0.19/lib/libmysqlclient.21.dylib; sourceTree = "<group>"; };
-		9391AB42244A7A6F00092337 /* libsybdb.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsybdb.5.dylib; path = ../../../../usr/local/Cellar/freetds/1.1.32/lib/libsybdb.5.dylib; sourceTree = "<group>"; };
+		9391AB42244A7A6F00092337 /* libsybdb.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsybdb.5.dylib; path = ../../../../usr/local/Cellar/freetds/1.1.33/lib/libsybdb.5.dylib; sourceTree = "<group>"; };
 		9391AB46244A7BCB00092337 /* libpq.5.12.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libpq.5.12.dylib; path = ../../../../usr/local/Cellar/libpq/12.2_1/lib/libpq.5.12.dylib; sourceTree = "<group>"; };
 		93AD5F0723D1248E002C556F /* Database.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Database.icns; sourceTree = "<group>"; };
+		93DB3C03245C02C500222C8E /* libssl.1.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libssl.1.1.dylib; path = "../../../../usr/local/Cellar/openssl@1.1/1.1.1g/lib/libssl.1.1.dylib"; sourceTree = "<group>"; };
+		93DB3C05245C049000222C8E /* libssl.1.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libssl.1.1.dylib; path = "../../../../usr/local/Cellar/openssl@1.1/1.1.1g/lib/libssl.1.1.dylib"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				93DB3C04245C02C500222C8E /* libssl.1.1.dylib in Frameworks */,
 				936C53D623D27678007AFE6A /* libmysqlclient.21.dylib in Frameworks */,
 				9391AB47244A7BCB00092337 /* libpq.5.12.dylib in Frameworks */,
 				9391AB43244A7A6F00092337 /* libsybdb.5.dylib in Frameworks */,
@@ -66,6 +72,7 @@
 		931F56F423CBF71A00D638DF = {
 			isa = PBXGroup;
 			children = (
+				93DB3C05245C049000222C8E /* libssl.1.1.dylib */,
 				931F570023CBF71A00D638DF /* Run SQL */,
 				931F56FF23CBF71A00D638DF /* Products */,
 				936C53BF23D274B2007AFE6A /* Frameworks */,
@@ -97,6 +104,7 @@
 		936C53BF23D274B2007AFE6A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				93DB3C03245C02C500222C8E /* libssl.1.1.dylib */,
 				9391AB46244A7BCB00092337 /* libpq.5.12.dylib */,
 				936C53D523D27678007AFE6A /* libmysqlclient.21.dylib */,
 				9391AB42244A7A6F00092337 /* libsybdb.5.dylib */,
@@ -344,10 +352,10 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = YZTT4L7JUR;
 				HEADER_SEARCH_PATHS = (
-					/usr/local/Cellar/openssl/1.0.2t/include,
+					"/usr/local/Cellar/openssl@1.1/1.1.1g/include",
 					/usr/local/Cellar/mysql/8.0.19/include,
-					/usr/local/Cellar/libpq/12.1_1/include,
-					/usr/local/Cellar/freetds/1.1.32/include,
+					/usr/local/Cellar/libpq/12.2_1/include,
+					/usr/local/Cellar/freetds/1.1.33/include,
 					/usr/local/include,
 					/usr/include,
 				);
@@ -361,14 +369,14 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/usr/local/lib,
-					/usr/local/Cellar/postgresql/12.2/lib,
 					/usr/local/Cellar/mysql/8.0.19/lib,
-					/usr/local/Cellar/freetds/1.1.32/lib,
+					/usr/local/Cellar/freetds/1.1.33/lib,
+					/usr/local/Cellar/libpq/12.2_1/lib,
 					/usr/lib,
 					"$(PROJECT_DIR)",
-					/usr/local/Cellar/libpq/12.2_1/lib,
+					"/usr/local/Cellar/openssl@1.1/1.1.1g/lib",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2;
 				OTHER_LDFLAGS = (
 					"-lmysqlclient",
 					"-lpq",
@@ -395,10 +403,10 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = YZTT4L7JUR;
 				HEADER_SEARCH_PATHS = (
-					/usr/local/Cellar/openssl/1.0.2t/include,
+					"/usr/local/Cellar/openssl@1.1/1.1.1g/include",
 					/usr/local/Cellar/mysql/8.0.19/include,
-					/usr/local/Cellar/libpq/12.1_1/include,
-					/usr/local/Cellar/freetds/1.1.32/include,
+					/usr/local/Cellar/libpq/12.2_1/include,
+					/usr/local/Cellar/freetds/1.1.33/include,
 					/usr/local/include,
 					/usr/include,
 				);
@@ -412,14 +420,14 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/usr/local/lib,
-					/usr/local/Cellar/postgresql/12.2/lib,
 					/usr/local/Cellar/mysql/8.0.19/lib,
-					/usr/local/Cellar/freetds/1.1.32/lib,
+					/usr/local/Cellar/freetds/1.1.33/lib,
+					/usr/local/Cellar/libpq/12.2_1/lib,
 					/usr/lib,
 					"$(PROJECT_DIR)",
-					/usr/local/Cellar/libpq/12.2_1/lib,
+					"/usr/local/Cellar/openssl@1.1/1.1.1g/lib",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2;
 				OTHER_LDFLAGS = (
 					"-lmysqlclient",
 					"-lpq",
